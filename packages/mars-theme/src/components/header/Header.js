@@ -4,7 +4,6 @@ import LogoTitle from "./LogoTitle";
 import HeaderNav from "./HeaderNav";
 import Search from "../Search";
 import Logo from "../Logo"
-import Menu from "../Menu"
 
 
 const Header = ({ state }) => {
