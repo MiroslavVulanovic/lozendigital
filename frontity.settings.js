@@ -3,8 +3,8 @@ const settings = {
   "state": {
     "frontity": {
       "url": "https://test.frontity.org",
-      "title": "Test Frontity Blog",
-      "description": "WordPress installation for Frontity development"
+      "title": "Lozen Digital",
+      "description": "Kreativna digitalna agencija"
     }
   },
   "packages": [
@@ -36,7 +36,7 @@ const settings = {
           ],
           "featured": {
             "showOnList": false,
-            "showOnPost": false
+            "showOnPost": true
           }
         }
       }
@@ -45,7 +45,8 @@ const settings = {
       "name": "@frontity/wp-source",
       "state": {
         "source": {
-          "url": "https://test.frontity.org"
+          "api": "http://localhost/lozendigital/wp-json",
+          "homepage": "home",
         }
       }
     },

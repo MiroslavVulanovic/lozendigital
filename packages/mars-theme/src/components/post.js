@@ -1,8 +1,14 @@
 import { useEffect } from "react";
 import { connect, styled } from "frontity";
+import Switch from "@frontity/components/switch";
 import Link from "./link";
 import List from "./list";
 import FeaturedMedia from "./featured-media";
+import HomePage from "./pages/homePageComponents/HomePage";
+import AboutUsPage from "../components/pages/aboutUsComponents/AboutUsPage";
+import ProductsPage from "./pages/productsPageComponents/ProductsPage";
+import BlogPage from "../components/pages/BlogPage";
+import ContactPage from "../components/pages/contactPageComponents/ContactPage";
 
 /**
  * The Post component that Mars uses to render any kind of "post type", like
@@ -26,6 +32,7 @@ import FeaturedMedia from "./featured-media";
 const Post = ({ state, actions, libraries }) => {
   // Get information about the current URL.
   const data = state.source.get(state.router.link);
+  // console.log('------state.router.link-------', state.router.link);
   // Get the data of the post.
   const post = state.source[data.type][data.id];
   // Get the data of the author.
@@ -46,57 +53,72 @@ const Post = ({ state, actions, libraries }) => {
     List.preload();
   }, [actions.source]);
 
+  const currentRoute = state.router.link;
+
   // Load the post, but only if the data is ready.
   return data.isReady ? (
     <Container>
-      <div>
-        <Title dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
-
-        {/* Hide author and date on pages */}
-        {!data.isPage && (
-          <div>
-            {author && (
-              <StyledLink link={author.link}>
-                <Author>
-                  By <b>{author.name}</b>
-                </Author>
-              </StyledLink>
-            )}
-            <DateWrapper>
-              {" "}
-              on <b>{date.toDateString()}</b>
-            </DateWrapper>
-          </div>
-        )}
-      </div>
-
-      {/* Look at the settings to see if we should include the featured image */}
-      {state.theme.featured.showOnPost && (
-        <FeaturedMedia id={post.featured_media} />
-      )}
-
-      {data.isAttachment ? (
-        // If the post is an attachment, just render the description property,
-        // which already contains the thumbnail.
-        <div dangerouslySetInnerHTML={{ __html: post.description.rendered }} />
-      ) : (
-        // Render the content using the Html2React component so the HTML is
-        // processed by the processors we included in the
-        // libraries.html2react.processors array.
-        <Content>
-          <Html2React html={post.content.rendered} />
-        </Content>
-      )}
+      <Switch>
+        <HomePage when={currentRoute === "/"} post={post} Html2React={Html2React} data={data}/>
+        <AboutUsPage when={currentRoute === "/o-nama/"} post={post} />
+        <ProductsPage when={currentRoute === "/usluge/"} post={post} />
+        <BlogPage  when={currentRoute === "/blog/"} post={post} />
+        <ContactPage when={currentRoute === "/kontakt/"} post={post} />
+      </Switch>
     </Container>
+    
+      
+
+  //   <div>
+  //   <Title dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+
+  //   {/* Hide author and date on pages */}
+  //   {!data.isPage && (
+  //     <div>
+  //       {author && (
+  //         <StyledLink link={author.link}>
+  //           <Author>
+  //             By <b>{author.name}</b>
+  //           </Author>
+  //         </StyledLink>
+  //       )}
+  //       <DateWrapper>
+  //         {" "}
+  //         on <b>{date.toDateString()}</b>
+  //       </DateWrapper>
+  //     </div>
+  //   )}
+  // </div>
+
+
+
+      // {/* Look at the settings to see if we should include the featured image */}
+      // {state.theme.featured.showOnPost && (
+      //   <FeaturedMedia id={post.featured_media} />
+      // )}
+
+      // {data.isAttachment ? (
+      //   // If the post is an attachment, just render the description property,
+      //   // which already contains the thumbnail.
+      //   <div dangerouslySetInnerHTML={{ __html: post.description.rendered }} />
+      // ) : (
+      //   // Render the content using the Html2React component so the HTML is
+      //   // processed by the processors we included in the
+      //   // libraries.html2react.processors array.
+      //   <Content>
+      //     <Html2React html={post.content.rendered} />
+      //   </Content>
+      // )}
+
   ) : null;
 };
 
 export default connect(Post);
 
 const Container = styled.div`
-  width: 800px;
+  /* width: 800px; */
   margin: 0;
-  padding: 24px;
+  /* padding: 24px; */
 `;
 
 const Title = styled.h1`

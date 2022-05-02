@@ -12,6 +12,7 @@ import Image from "@frontity/components/image";
  */
 const FeaturedMedia = ({ state, id }) => {
   const media = state.source.attachment[id];
+  // console.log('------media-----', media);
 
   if (!media) return null;
 

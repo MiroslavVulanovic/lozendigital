@@ -2,6 +2,10 @@ import Theme from "./components";
 import image from "@frontity/html2react/processors/image";
 import iframe from "@frontity/html2react/processors/iframe";
 import link from "@frontity/html2react/processors/link";
+import menuHandler from "./components/handlers/menu-handler";
+
+import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick-theme.css";
 
 const marsTheme = {
   name: "@frontity/mars-theme",
@@ -20,6 +24,7 @@ const marsTheme = {
     theme: {
       autoPrefetch: "in-view",
       menu: [],
+      menuUrl: "mainmenu",
       isMobileMenuOpen: false,
       featured: {
         showOnList: false,
@@ -40,6 +45,9 @@ const marsTheme = {
       closeMobileMenu: ({ state }) => {
         state.theme.isMobileMenuOpen = false;
       },
+      beforeSSR: async ({ state, actions }) => {
+        await actions.source.fetch(`/menu/${state.theme.menuUrl}/`);
+      },
     },
   },
   libraries: {
@@ -50,6 +58,9 @@ const marsTheme = {
        * You can add your own processors too.
        */
       processors: [image, iframe, link],
+    },
+    source: {
+      handlers: [menuHandler],
     },
   },
 };
