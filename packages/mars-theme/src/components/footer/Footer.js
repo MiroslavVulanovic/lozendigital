@@ -1,7 +1,6 @@
 import { connect, styled } from "frontity";
 import LogoFooter from "../LogoFooter";
-import LogoTitle from "../header/LogoTitle";
-import Nav from "../Nav";
+import FooterNav from "./FooterNav";
 import FooterDescription from "./FooterDescription";
 import SocialMedia from "./SocialMedia";
 
@@ -9,18 +8,10 @@ import SocialMedia from "./SocialMedia";
 
   return (
     <FooterContainer>
-      {/* <LogoTitleContainer> */}
-        {/* <Logo component="footer"/> */}
-        {/* <LogoTitle />
-      </LogoTitleContainer>
-      <FooterInfoContainer> */}
-        <Nav />
+        <FooterNav />
         <LogoFooter />
         <FooterDescription />
-      {/* </FooterInfoContainer>
-      <SocialMediaContainer> */}
         <SocialMedia />
-      {/* </SocialMediaContainer> */}
     </FooterContainer>
   );
 };
